@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t="gustavonalle/infinispan-spark" .
+docker build --rm=true --tag="gustavonalle/infinispan-spark" .

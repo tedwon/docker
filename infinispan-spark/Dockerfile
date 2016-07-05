@@ -1,15 +1,15 @@
 FROM fedora:20
-MAINTAINER gustavonalle 
+MAINTAINER gustavonalle
 
-ENV INFINISPAN_VERSION 8.0.0.Final
-ENV SPARK_VERSION 1.4.0
-ENV SPARK_HADOOP_VERSION 2.6 
+ENV INFINISPAN_VERSION 8.2.2.Final
+ENV SPARK_VERSION 1.6.2
+ENV SPARK_HADOOP_VERSION 2.6
 
 RUN  (yum -y install words tar unzip supervisor java-1.8.0-openjdk-devel; \
      yum -y autoremove; \
-     yum -y clean all;) 
+     yum -y clean all;)
 
-RUN curl "http://mirror.vorboss.net/apache/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION.tgz" | tar -C /usr/local/ -xz | ln -s /usr/local/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION/ /usr/local/spark
+RUN curl "http://www-us.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION.tgz" | tar -C /usr/local/ -xz | ln -s /usr/local/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION/ /usr/local/spark
 ADD start-spark.sh /usr/local/spark/
 
 RUN curl "https://repo1.maven.org/maven2/org/infinispan/server/infinispan-server-build/$INFINISPAN_VERSION/infinispan-server-build-$INFINISPAN_VERSION.zip" > /server.zip && unzip /server.zip -d /usr/local && rm /server.zip && ln -s /usr/local/infinispan-server-* /usr/local/infinispan-server
